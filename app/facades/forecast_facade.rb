@@ -4,10 +4,9 @@ class ForecastFacade
   end
 
   def forecast
-    # step 1: use the location to get the coordinates
     coordinates = mapquest_service.get_coordinates
-
     # step 2: use the coordinates to get the weather
+    forecast = openweather_service(coordinates).get_forecast
     # step 3: format using the serializer
   end
 
@@ -17,5 +16,9 @@ class ForecastFacade
 
   def mapquest_service
     MapquestService.new(location)
+  end
+
+  def openweather_service(coordinates)
+    OpenweatherService.new(coordinates)
   end
 end
