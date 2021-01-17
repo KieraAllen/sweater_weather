@@ -38,8 +38,8 @@ describe 'Forecast API' do
     expect(response_body[:attributes][:current_weather][:temperature]).to be_a(Float)
     expect(response_body[:attributes][:current_weather][:feels_like]).to be_a(Float)
     expect(response_body[:attributes][:current_weather][:humidity].class).to be_in([Float, Integer])
-    expect(response_body[:attributes][:current_weather][:uvi]).to be_in([Float, Integer])
-    expect(response_body[:attributes][:current_weather][:visibvisibility]).to be_in([Float, Integer])
+    expect(response_body[:attributes][:current_weather][:uvi].class).to be_in([Float, Integer])
+    expect(response_body[:attributes][:current_weather][:visibility].class).to be_in([Float, Integer])
     expect(response_body[:attributes][:current_weather][:conditions]).to be_a(String)
     expect(response_body[:attributes][:current_weather][:icon]).to be_a(String)
 
