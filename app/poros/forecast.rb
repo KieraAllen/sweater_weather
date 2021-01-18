@@ -12,14 +12,13 @@ class Forecast
     @hourly_weather = format_hourly_weather(forecast_info["hourly"])
   end
 
-  private
   def format_current_weather(info)
     {
       datetime: Time.at(info["dt"]).to_s,
       sunrise: Time.at(info["sunrise"]).to_s,
       sunset: Time.at(info["sunset"]).to_s,
-      temperature: info["temp"],
-      feels_like: info["feels_like"],
+      temperature: convert_kelvin_to_fahrenheit(info["temp"]),
+      feels_like: convert_kelvin_to_fahrenheit(info["feels_like"]),
       humidity: info["humidity"],
       uvi: info["uvi"],
       visibility: info["visibility"],
@@ -34,8 +33,8 @@ class Forecast
         date: Time.at(day["dt"]).to_date.to_s,
         sunrise: Time.at(day["sunrise"]).to_s,
         sunset: Time.at(day["sunset"]).to_s,
-        max_temp: day["temp"]["max"],
-        min_temp: day["temp"]["min"],
+        max_temp: convert_kelvin_to_fahrenheit(day["temp"]["max"]),
+        min_temp: convert_kelvin_to_fahrenheit(day["temp"]["min"]),
         conditions: day["weather"].first["description"],
         icon: day["weather"].first["icon"]
       }
@@ -46,7 +45,7 @@ class Forecast
     info[0..7].map do |hour|
       {
         time: Time.at(hour["dt"]).strftime("%H:%M:%S"),
-        temperature: hour["temp"],
+        temperature: convert_kelvin_to_fahrenheit(hour["temp"]),
         wind_speed: hour["wind_speed"].to_s + " mph",
         wind_direction: convert_to_wind_direction(hour["wind_deg"]),
         conditions: hour["weather"].first["description"],
@@ -73,5 +72,11 @@ class Forecast
     else
       'Northerly'
     end
+  end
+
+  def convert_kelvin_to_fahrenheit(kelvin_temp)
+    celsius_temp = kelvin_temp - 273.15
+    fahrenheit = celsius_temp * (9/5) + 32
+    fahrenheit.round(2)
   end
 end
