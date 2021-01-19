@@ -16,6 +16,6 @@ describe 'Background Image API' do
     expect(response_body.keys).to eq([:id, :type, :attributes])
     expect(response_body[:attributes].keys).to eq([:image])
     expect(response_body[:attributes][:image].keys).to eq([:location, :image_url, :credit])
-    expect(response_body[:attributes][:image][:credit].keys).to eq([:source, :author, :logo])
+    expect(response_body[:attributes][:image][:credit].keys).to eq([:source, :author, :author_profile])
   end
 end
