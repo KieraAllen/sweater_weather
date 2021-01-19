@@ -7,6 +7,6 @@ class Api::V1::MunchiesController < ApplicationController
       end_location: params[:end],
       food: params[:food]
     }
-    render json: MunchiesSerializer.new(MunchiesFacade.new(info))
+    render json: MunchiesSerializer.new(MunchiesFacade.new(info).munchies)
   end
 end
